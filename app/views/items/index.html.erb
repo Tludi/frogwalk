@@ -1,27 +1,142 @@
-<p id="notice"><%= notice %></p>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Data Tables</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a>Tables</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Data Tables</strong>
+            </li>
+        </ol>
+    </div>
+</div>
 
-<h1>Items</h1>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Basic Data Tables for the Frogwalk Vagabond store</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#" class="dropdown-item">Config option 1</a>
+                        </li>
+                        <li><a href="#" class="dropdown-item">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                        <thead>
+                        <tr>
+                            <th>ID SKU</th>
+                            <th>Item</th>
+                            <th>Brand</th>
+                            <th>Sale Price</th>
+                            <th>COG</th>
+                            <th>e</th>
+                            <th>e</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <% @items.each do |item| %>
+                              <tr>
+                                <td><%= item.itemSKU %></td>
+                                <td><%= link_to item do %>
+                                  <%= item.itemTitle %>
+                                <% end -%>    
+                                </td>
+                                <td><%= item.itemBrand %></td>
+                                <td><%= item.itemSellPrice %></td>
+                                <td><%= item.itemCOG %></td>
 
-  <tbody>
-    <% @items.each do |item| %>
-      <tr>
-        <td><%= item.itemTitle %></td>
-        <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_item_path(item) %></td>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+                                <td><%= link_to edit_item_path(item) do %>
+                                  <i class="fa fa-edit"></i>
+                                <% end -%>
+                                </td>
 
-<br>
+                                <td><%= link_to item, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                                  <i class="fa fa-trash"></i>
+                                <% end -%>                                 
+                                </td>
+                              </tr>
+                            <% end %>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>ID SKU</th>
+                            <th>Item</th>
+                            <th>Brand</th>
+                            <th>Sale Price</th>
+                            <th>COG</th>
+                            <th>e</th>
+                            <th>e</th>
+                        </tr>
+                        </tfoot>
+                        <%= link_to 'New Item', new_item_path %>
+                    </table>
+                </div>
 
-<%= link_to 'New Item', new_item_path %>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+$(function() {
+
+    $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
+
+    $('.dataTables-example').DataTable({
+        pageLength: 25,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            { extend: 'copy'},
+            {extend: 'csv'},
+            {extend: 'excel', title: 'ExampleFile'},
+            {extend: 'pdf', title: 'ExampleFile'},
+
+            {extend: 'print',
+                customize: function (win){
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+
+                    $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                }
+            }
+        ]
+
+    });
+
+
+});
+
+
+
+</script>
+
+<% end %>

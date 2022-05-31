@@ -46,30 +46,40 @@
                         <thead>
                         <tr>
                             <th>Item</th>
-                            <th>Purchase Date</th>
-                            <th>Location</th>
                             <th>ID SKU</th>
+                            <th>Brand</th>
                             <th>Price</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
                             <% @items.each do |item| %>
                               <tr>
                                 <td><%= item.itemTitle %></td>
-                                <td><%= item.purchaseDate %></td>
-                                <td><%= link_to 'Show', item %></td>
-                                <td><%= link_to 'Edit', edit_item_path(item) %></td>
-                                <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                                <td><%= item.itemSKU %></td>
+                                <td><%= item.itemBrand %></td>
+                                <td><%= item.itemSellPrice %></td>
+                
+                                <td><%= link_to edit_item_path(item) do %>
+                                  <i class="fa fa-edit"></i>
+                                <% end -%>
+                                </td>
+                                <td><%= link_to item, method: :delete, data: { confirm: 'Do you really want to delete me?' } do %>
+                                    <i class="fa fa-trash"></i>
+                                <% end -%>
+                                </td>
                               </tr>
                             <% end %>
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>Rendering engine</th>
-                            <th>Browser</th>
-                            <th>Platform(s)</th>
-                            <th>Engine version</th>
-                            <th>CSS grade</th>
+                            <th>Item</th>
+                            <th>ID SKU</th>
+                            <th>Brand</th>
+                            <th>Price</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         </tfoot>
                         <%= link_to 'New Item', new_item_path %>
