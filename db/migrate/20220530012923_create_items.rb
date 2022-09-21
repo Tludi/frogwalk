@@ -18,7 +18,7 @@ class CreateItems < ActiveRecord::Migration[6.0]
       t.decimal :shippingCharge
       t.decimal :shippingCost
       t.decimal :finalFees
-      t.decimal :soldPrice
+      t.decimal :soldPrice, default: 1
       t.decimal :profit
       t.decimal :adjProfit
       t.decimal :currentDiscount
